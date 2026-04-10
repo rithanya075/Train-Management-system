@@ -1,63 +1,54 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
- * UC13: Performance Comparison (Loops vs Streams)
+ * UC14: Handle Invalid Bogie Capacity using Custom Exception
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC13: Loop vs Stream Performance ===");
+        System.out.println("=== UC14: Bogie Capacity Validation ===");
 
-        List<GoodsBogie> bogies = new ArrayList<>();
+        List<PassengerBogie> list = new ArrayList<>();
 
-        // 🔹 Create sample data
-        for (int i = 0; i < 100000; i++) {
-            if (i % 2 == 0)
-                bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
-            else
-                bogies.add(new GoodsBogie("Box", "Coal"));
+        try {
+            // ✅ Valid bogie
+            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
+            list.add(b1);
+
+            // ❌ Invalid bogie
+            PassengerBogie b2 = new PassengerBogie("AC Chair", -10);
+            list.add(b2);
+
+        } catch (InvalidCapacityException e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
-        // 🔥 LOOP BASED FILTERING
-        long startLoop = System.nanoTime();
-
-        List<GoodsBogie> loopResult = new ArrayList<>();
-        for (GoodsBogie b : bogies) {
-            if (b.type.equals("Cylindrical")) {
-                loopResult.add(b);
-            }
-        }
-
-        long endLoop = System.nanoTime();
-        long loopTime = endLoop - startLoop;
-
-        // 🔥 STREAM BASED FILTERING
-        long startStream = System.nanoTime();
-
-        List<GoodsBogie> streamResult = bogies.stream()
-                .filter(b -> b.type.equals("Cylindrical"))
-                .collect(Collectors.toList());
-
-        long endStream = System.nanoTime();
-        long streamTime = endStream - startStream;
-
-        // ✅ OUTPUT
-        System.out.println("Loop Time   : " + loopTime + " ns");
-        System.out.println("Stream Time : " + streamTime + " ns");
+        System.out.println("Program continues safely...");
     }
 }
 
 /**
- * GoodsBogie Class
+ * PassengerBogie Class with Validation
  */
-class GoodsBogie {
-    String type;
-    String cargo;
+class PassengerBogie {
+    String name;
+    int capacity;
 
-    public GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
+    public PassengerBogie(String name, int capacity) throws InvalidCapacityException {
+        if (capacity <= 0) {
+            throw new InvalidCapacityException("Capacity must be greater than 0 for bogie: " + name);
+        }
+        this.name = name;
+        this.capacity = capacity;
+    }
+}
+
+/**
+ * Custom Exception Class
+ */
+class InvalidCapacityException extends Exception {
+    public InvalidCapacityException(String message) {
+        super(message);
     }
 }
