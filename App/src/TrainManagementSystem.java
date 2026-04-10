@@ -1,8 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * UC2: Dynamic Bogie Management using ArrayList
+ * UC3: Track Unique Bogie IDs using HashSet
  */
 
 public class TrainManagementSystem {
@@ -14,32 +14,25 @@ public class TrainManagementSystem {
         System.out.println("Train Consist Management App");
         System.out.println("=================================");
 
-        // 🔹 Create ArrayList for bogies
-        List<String> bogies = new ArrayList<>();
+        // 🔹 Create HashSet for unique bogie IDs
+        Set<String> bogieIds = new HashSet<>();
 
-        // 🔹 Add bogies (CREATE)
-        bogies.add("Sleeper");
-        bogies.add("AC Chair");
-        bogies.add("First Class");
+        // 🔹 Add bogie IDs
+        bogieIds.add("B101");
+        bogieIds.add("B102");
+        bogieIds.add("B103");
 
-        // 🔹 Display bogies (READ)
-        System.out.println("\nBogie List After Addition:");
-        System.out.println(bogies);
+        // 🔹 Attempt duplicate insert
+        bogieIds.add("B102"); // Duplicate → ignored
 
-        // 🔹 Remove a bogie (DELETE)
-        bogies.remove("AC Chair");
+        // 🔹 Display unique bogie IDs
+        System.out.println("\nUnique Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
+        }
 
-        System.out.println("\nAfter Removing 'AC Chair':");
-        System.out.println(bogies);
-
-        // 🔹 Check existence (SEARCH)
-        boolean exists = bogies.contains("Sleeper");
-
-        System.out.println("\nDoes Sleeper exist? " + exists);
-
-        // 🔹 Final state
-        System.out.println("\nFinal Bogie List:");
-        System.out.println(bogies);
+        // 🔹 Check if ID exists
+        System.out.println("\nDoes B101 exist? " + bogieIds.contains("B101"));
 
         // 🔹 Continue program
         System.out.println("\nSystem Ready for Next Operations...");
