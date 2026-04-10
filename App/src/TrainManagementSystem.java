@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UC1: Train Consist Initialization
- * Train Management System Entry Point
+ * UC2: Dynamic Bogie Management using ArrayList
  */
 
 public class TrainManagementSystem {
@@ -15,13 +14,34 @@ public class TrainManagementSystem {
         System.out.println("Train Consist Management App");
         System.out.println("=================================");
 
-        // 🔹 Initialize empty train consist
-        List<String> trainConsist = new ArrayList<>();
+        // 🔹 Create ArrayList for bogies
+        List<String> bogies = new ArrayList<>();
 
-        // 🔹 Display initial bogie count
-        System.out.println("Initial Bogie Count: " + trainConsist.size());
+        // 🔹 Add bogies (CREATE)
+        bogies.add("Sleeper");
+        bogies.add("AC Chair");
+        bogies.add("First Class");
 
-        // 🔹 Continue execution
-        System.out.println("System Ready for Operations...");
+        // 🔹 Display bogies (READ)
+        System.out.println("\nBogie List After Addition:");
+        System.out.println(bogies);
+
+        // 🔹 Remove a bogie (DELETE)
+        bogies.remove("AC Chair");
+
+        System.out.println("\nAfter Removing 'AC Chair':");
+        System.out.println(bogies);
+
+        // 🔹 Check existence (SEARCH)
+        boolean exists = bogies.contains("Sleeper");
+
+        System.out.println("\nDoes Sleeper exist? " + exists);
+
+        // 🔹 Final state
+        System.out.println("\nFinal Bogie List:");
+        System.out.println(bogies);
+
+        // 🔹 Continue program
+        System.out.println("\nSystem Ready for Next Operations...");
     }
 }
