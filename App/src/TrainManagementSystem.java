@@ -1,20 +1,20 @@
-import java.util.*;
+import java.util.Arrays;
 
 /**
- * UC18: Linear Search for Bogie ID
+ * UC19: Binary Search for Bogie ID
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC18: Linear Search for Bogie ID ===");
+        System.out.println("=== UC19: Binary Search for Bogie ID ===");
 
-        // Array of bogie IDs
-        String[] bogieIds = {"BG101", "BG202", "BG303", "BG404"};
+        // 🔥 MUST BE SORTED
+        String[] bogieIds = {"BG101", "BG202", "BG303", "BG404", "BG505"};
 
-        String searchKey = "BG303"; // 🔍 change this to test
+        String searchKey = "BG303";
 
-        boolean found = linearSearch(bogieIds, searchKey);
+        boolean found = binarySearch(bogieIds, searchKey);
 
         if (found) {
             System.out.println("Bogie ID " + searchKey + " FOUND ✅");
@@ -23,14 +23,27 @@ public class TrainManagementSystem {
         }
     }
 
-    // 🔥 Linear Search Method
-    public static boolean linearSearch(String[] arr, String key) {
+    // 🔥 Binary Search Method
+    public static boolean binarySearch(String[] arr, String key) {
 
-        for (String id : arr) {
-            if (id.equals(key)) {  // safe string comparison
-                return true; // early termination
+        int low = 0;
+        int high = arr.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int result = arr[mid].compareTo(key);
+
+            if (result == 0) {
+                return true; // found
+            } else if (result < 0) {
+                low = mid + 1; // search right
+            } else {
+                high = mid - 1; // search left
             }
         }
-        return false;
+
+        return false; // not found
     }
 }
