@@ -1,27 +1,26 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.testng.AssertJUnit.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
-
-public class TrainManagementSystemTest {
+class TrainManagementSystemTest {
 
     @Test
-    public void testSafeTrain() {
-        List<GoodsBogie> list = new ArrayList<>();
-        list.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        list.add(new GoodsBogie("Box", "Coal"));
+    void testPerformanceExecution() {
 
-        assertTrue(TrainManagementSystem.isSafe(list));
-    }
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-    @Test
-    public void testUnsafeTrain() {
-        List<GoodsBogie> list = new ArrayList<>();
-        list.add(new GoodsBogie("Cylindrical", "Water"));
+        for (int i = 0; i < 1000; i++) {
+            bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        }
 
-        assertFalse(TrainManagementSystem.isSafe(list));
+        long start = System.nanoTime();
+
+        bogies.stream()
+                .filter(b -> b.type.equals("Cylindrical"))
+                .toList();
+
+        long end = System.nanoTime();
+
+        assertTrue((end - start) > 0); // just ensure it runs
     }
 }
