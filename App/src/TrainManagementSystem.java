@@ -1,46 +1,45 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 /**
- * UC11: Validate Train ID & Cargo Code using Regex
+ * UC12: Safety Compliance Check for Goods Bogies
  */
-
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        // 🔹 Welcome Message
-        System.out.println("=================================");
-        System.out.println("Train Consist Management App");
-        System.out.println("=================================");
+        System.out.println("=== Train Safety Compliance Check ===");
 
-        // 🔹 Sample Inputs (you can later replace with Scanner)
-        String trainId = "TRN-1234";
-        String cargoCode = "PET-AB";
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-        // 🔹 Define Regex Patterns
-        String trainPattern = "TRN-\\d{4}";
-        String cargoPattern = "PET-[A-Z]{2}";
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie("Box", "Coal"));
 
-        // 🔹 Compile Patterns
-        Pattern p1 = Pattern.compile(trainPattern);
-        Pattern p2 = Pattern.compile(cargoPattern);
+        boolean safe = isSafe(bogies);
 
-        // 🔹 Create Matchers
-        Matcher m1 = p1.matcher(trainId);
-        Matcher m2 = p2.matcher(cargoCode);
+        if (safe) {
+            System.out.println("Train is SAFE ✅");
+        } else {
+            System.out.println("Train is NOT SAFE ❌");
+        }
+    }
 
-        // 🔹 Validate
-        boolean isTrainValid = m1.matches();
-        boolean isCargoValid = m2.matches();
+    // 🔥 Core Logic (UC12)
+    public static boolean isSafe(List<GoodsBogie> list) {
+        return list.stream().allMatch(b ->
+                !(b.type.equals("Cylindrical") && !b.cargo.equals("Petroleum"))
+        );
+    }
+}
 
-        // 🔹 Output Results
-        System.out.println("\nTrain ID: " + trainId + " → " +
-                (isTrainValid ? "Valid ✅" : "Invalid ❌"));
+/**
+ * GoodsBogie Class
+ */
+class GoodsBogie {
+    String type;
+    String cargo;
 
-        System.out.println("Cargo Code: " + cargoCode + " → " +
-                (isCargoValid ? "Valid ✅" : "Invalid ❌"));
-
-        System.out.println("\nSystem Ready for Next Operations...");
+    public GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
     }
 }
