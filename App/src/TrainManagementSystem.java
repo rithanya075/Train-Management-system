@@ -1,8 +1,7 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 /**
- * UC3: Track Unique Bogie IDs using HashSet
+ * UC4: Maintain Ordered Train Consist using LinkedList
  */
 
 public class TrainManagementSystem {
@@ -14,27 +13,36 @@ public class TrainManagementSystem {
         System.out.println("Train Consist Management App");
         System.out.println("=================================");
 
-        // 🔹 Create HashSet for unique bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // 🔹 Create LinkedList
+        LinkedList<String> train = new LinkedList<>();
 
-        // 🔹 Add bogie IDs
-        bogieIds.add("B101");
-        bogieIds.add("B102");
-        bogieIds.add("B103");
+        // 🔹 Add bogies (Initial)
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-        // 🔹 Attempt duplicate insert
-        bogieIds.add("B102"); // Duplicate → ignored
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(train);
 
-        // 🔹 Display unique bogie IDs
-        System.out.println("\nUnique Bogie IDs:");
-        for (String id : bogieIds) {
-            System.out.println(id);
-        }
+        // 🔹 Insert Pantry Car at position 2
+        train.add(2, "Pantry Car");
 
-        // 🔹 Check if ID exists
-        System.out.println("\nDoes B101 exist? " + bogieIds.contains("B101"));
+        System.out.println("\nAfter Adding Pantry Car at position 2:");
+        System.out.println(train);
 
-        // 🔹 Continue program
+        // 🔹 Remove first and last bogie
+        train.removeFirst();
+        train.removeLast();
+
+        System.out.println("\nAfter Removing First and Last Bogie:");
+        System.out.println(train);
+
+        // 🔹 Final Output
+        System.out.println("\nFinal Ordered Train Consist:");
+        System.out.println(train);
+
         System.out.println("\nSystem Ready for Next Operations...");
     }
 }
