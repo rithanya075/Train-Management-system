@@ -4,21 +4,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainManagementSystemTest {
 
     @Test
-    void testSafeCargo() {
-        GoodsBogie b = new GoodsBogie("Rectangular", "Coal");
+    void testBubbleSort() {
+        int[] arr = {72, 50, 100, 30};
 
-        assertDoesNotThrow(() -> {
-            TrainManagementSystem.assignCargo(b);
-        });
+        TrainManagementSystem.bubbleSort(arr);
+
+        assertArrayEquals(new int[]{30, 50, 72, 100}, arr);
     }
 
     @Test
-    void testUnsafeCargo() {
-        GoodsBogie b = new GoodsBogie("Rectangular", "Petroleum");
+    void testAlreadySorted() {
+        int[] arr = {10, 20, 30};
 
-        // Since exception is caught internally, we just ensure method runs
-        assertDoesNotThrow(() -> {
-            TrainManagementSystem.assignCargo(b);
-        });
+        TrainManagementSystem.bubbleSort(arr);
+
+        assertArrayEquals(new int[]{10, 20, 30}, arr);
     }
 }

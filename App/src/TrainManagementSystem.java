@@ -1,60 +1,50 @@
 import java.util.*;
 
 /**
- * UC15: Safe Cargo Assignment using try-catch-finally
+ * UC16: Bubble Sort for Passenger Bogie Capacities
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC15: Cargo Safety Assignment ===");
+        System.out.println("=== UC16: Bubble Sort for Bogie Capacities ===");
 
-        GoodsBogie b1 = new GoodsBogie("Rectangular", "Coal");
-        GoodsBogie b2 = new GoodsBogie("Rectangular", "Petroleum"); // ❌ unsafe
+        int[] capacities = {72, 50, 100, 30, 60};
 
-        assignCargo(b1);
-        assignCargo(b2);
+        System.out.println("Before Sorting:");
+        printArray(capacities);
 
-        System.out.println("Program continues safely...");
+        bubbleSort(capacities);
+
+        System.out.println("After Sorting:");
+        printArray(capacities);
     }
 
-    // 🔥 Cargo Assignment Logic
-    public static void assignCargo(GoodsBogie bogie) {
-        try {
-            // ❌ Rule: Petroleum not allowed in Rectangular bogie
-            if (bogie.type.equals("Rectangular") && bogie.cargo.equals("Petroleum")) {
-                throw new CargoSafetyException("Unsafe Cargo! Petroleum cannot be assigned to Rectangular bogie.");
+    // 🔥 Bubble Sort Logic
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                // Compare adjacent elements
+                if (arr[j] > arr[j + 1]) {
+
+                    // Swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-
-            System.out.println("Cargo assigned successfully to " + bogie.type + " bogie.");
-
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Assignment attempt completed.\n");
         }
     }
-}
 
-/**
- * GoodsBogie Class
- */
-class GoodsBogie {
-    String type;
-    String cargo;
-
-    public GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
-    }
-}
-
-/**
- * Custom Runtime Exception
- */
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
+    // Helper method to print array
+    public static void printArray(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
     }
 }
