@@ -1,50 +1,24 @@
-import java.util.*;
+import java.util.Arrays;
 
 /**
- * UC16: Bubble Sort for Passenger Bogie Capacities
+ * UC17: Sort Bogie Names using Arrays.sort()
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC16: Bubble Sort for Bogie Capacities ===");
+        System.out.println("=== UC17: Sort Bogie Names Alphabetically ===");
 
-        int[] capacities = {72, 50, 100, 30, 60};
+        // Input array
+        String[] bogies = {"Sleeper", "AC Chair", "First Class", "Cargo", "Guard"};
 
         System.out.println("Before Sorting:");
-        printArray(capacities);
+        System.out.println(Arrays.toString(bogies));
 
-        bubbleSort(capacities);
+        // 🔥 Inbuilt sorting
+        Arrays.sort(bogies);
 
         System.out.println("After Sorting:");
-        printArray(capacities);
-    }
-
-    // 🔥 Bubble Sort Logic
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-
-        for (int i = 0; i < n - 1; i++) {
-
-            for (int j = 0; j < n - i - 1; j++) {
-
-                // Compare adjacent elements
-                if (arr[j] > arr[j + 1]) {
-
-                    // Swap
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
-    }
-
-    // Helper method to print array
-    public static void printArray(int[] arr) {
-        for (int val : arr) {
-            System.out.print(val + " ");
-        }
-        System.out.println();
+        System.out.println(Arrays.toString(bogies));
     }
 }

@@ -1,23 +1,30 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
 
 class TrainManagementSystemTest {
 
     @Test
-    void testBubbleSort() {
-        int[] arr = {72, 50, 100, 30};
+    void testSorting() {
+        String[] bogies = {"Sleeper", "AC Chair", "Cargo"};
 
-        TrainManagementSystem.bubbleSort(arr);
+        Arrays.sort(bogies);
 
-        assertArrayEquals(new int[]{30, 50, 72, 100}, arr);
+        assertArrayEquals(
+                new String[]{"AC Chair", "Cargo", "Sleeper"},
+                bogies
+        );
     }
 
     @Test
     void testAlreadySorted() {
-        int[] arr = {10, 20, 30};
+        String[] bogies = {"AC", "Cargo", "Sleeper"};
 
-        TrainManagementSystem.bubbleSort(arr);
+        Arrays.sort(bogies);
 
-        assertArrayEquals(new int[]{10, 20, 30}, arr);
+        assertArrayEquals(
+                new String[]{"AC", "Cargo", "Sleeper"},
+                bogies
+        );
     }
 }
