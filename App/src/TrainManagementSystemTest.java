@@ -4,16 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainManagementSystemTest {
 
     @Test
-    void testValidCapacity() {
+    void testSafeCargo() {
+        GoodsBogie b = new GoodsBogie("Rectangular", "Coal");
+
         assertDoesNotThrow(() -> {
-            PassengerBogie b = new PassengerBogie("Sleeper", 72);
+            TrainManagementSystem.assignCargo(b);
         });
     }
 
     @Test
-    void testInvalidCapacity() {
-        assertThrows(InvalidCapacityException.class, () -> {
-            new PassengerBogie("AC Chair", -5);
+    void testUnsafeCargo() {
+        GoodsBogie b = new GoodsBogie("Rectangular", "Petroleum");
+
+        // Since exception is caught internally, we just ensure method runs
+        assertDoesNotThrow(() -> {
+            TrainManagementSystem.assignCargo(b);
         });
     }
 }

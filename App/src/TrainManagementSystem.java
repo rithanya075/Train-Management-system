@@ -1,54 +1,60 @@
 import java.util.*;
 
 /**
- * UC14: Handle Invalid Bogie Capacity using Custom Exception
+ * UC15: Safe Cargo Assignment using try-catch-finally
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC14: Bogie Capacity Validation ===");
+        System.out.println("=== UC15: Cargo Safety Assignment ===");
 
-        List<PassengerBogie> list = new ArrayList<>();
+        GoodsBogie b1 = new GoodsBogie("Rectangular", "Coal");
+        GoodsBogie b2 = new GoodsBogie("Rectangular", "Petroleum"); // ❌ unsafe
 
-        try {
-            // ✅ Valid bogie
-            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            list.add(b1);
-
-            // ❌ Invalid bogie
-            PassengerBogie b2 = new PassengerBogie("AC Chair", -10);
-            list.add(b2);
-
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        assignCargo(b1);
+        assignCargo(b2);
 
         System.out.println("Program continues safely...");
     }
-}
 
-/**
- * PassengerBogie Class with Validation
- */
-class PassengerBogie {
-    String name;
-    int capacity;
+    // 🔥 Cargo Assignment Logic
+    public static void assignCargo(GoodsBogie bogie) {
+        try {
+            // ❌ Rule: Petroleum not allowed in Rectangular bogie
+            if (bogie.type.equals("Rectangular") && bogie.cargo.equals("Petroleum")) {
+                throw new CargoSafetyException("Unsafe Cargo! Petroleum cannot be assigned to Rectangular bogie.");
+            }
 
-    public PassengerBogie(String name, int capacity) throws InvalidCapacityException {
-        if (capacity <= 0) {
-            throw new InvalidCapacityException("Capacity must be greater than 0 for bogie: " + name);
+            System.out.println("Cargo assigned successfully to " + bogie.type + " bogie.");
+
+        } catch (CargoSafetyException e) {
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            System.out.println("Assignment attempt completed.\n");
         }
-        this.name = name;
-        this.capacity = capacity;
     }
 }
 
 /**
- * Custom Exception Class
+ * GoodsBogie Class
  */
-class InvalidCapacityException extends Exception {
-    public InvalidCapacityException(String message) {
+class GoodsBogie {
+    String type;
+    String cargo;
+
+    public GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
+    }
+}
+
+/**
+ * Custom Runtime Exception
+ */
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String message) {
         super(message);
     }
 }
