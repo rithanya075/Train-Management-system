@@ -2,17 +2,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * UC8: Filter Passenger Bogies using Streams
+ * UC9: Group Bogies by Type using Streams
  */
 
 // 🔹 Bogie Class
 class Bogie {
     String name;
     int capacity;
+    String type; // NEW FIELD
 
-    Bogie(String name, int capacity) {
+    Bogie(String name, int capacity, String type) {
         this.name = name;
         this.capacity = capacity;
+        this.type = type;
     }
 
     public String toString() {
@@ -32,19 +34,24 @@ public class TrainManagementSystem {
         // 🔹 Create Bogie List
         List<Bogie> bogies = new ArrayList<>();
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
+        bogies.add(new Bogie("Sleeper", 72, "Passenger"));
+        bogies.add(new Bogie("AC Chair", 60, "Passenger"));
+        bogies.add(new Bogie("First Class", 40, "Passenger"));
+        bogies.add(new Bogie("Cargo", 100, "Goods"));
+        bogies.add(new Bogie("Parcel", 80, "Goods"));
 
-        // 🔹 Filter bogies with capacity > 60
-        List<Bogie> filteredBogies = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        // 🔹 Group by type
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.type));
 
-        // 🔹 Display filtered bogies
-        System.out.println("\nFiltered Bogies (Capacity > 60):");
-        for (Bogie b : filteredBogies) {
-            System.out.println(b);
+        // 🔹 Display grouped result
+        System.out.println("\nGrouped Bogies:");
+
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("\nType: " + entry.getKey());
+            for (Bogie b : entry.getValue()) {
+                System.out.println("  " + b);
+            }
         }
 
         System.out.println("\nSystem Ready for Next Operations...");
