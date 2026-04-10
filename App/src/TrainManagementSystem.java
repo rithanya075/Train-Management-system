@@ -1,21 +1,20 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * UC7: Sort Bogies by Capacity using Comparator
+ * UC8: Filter Passenger Bogies using Streams
  */
 
-// 🔹 Bogie Class (Custom Object)
+// 🔹 Bogie Class
 class Bogie {
     String name;
     int capacity;
 
-    // Constructor
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    // toString() for printing
     public String toString() {
         return name + " (" + capacity + ")";
     }
@@ -30,20 +29,21 @@ public class TrainManagementSystem {
         System.out.println("Train Consist Management App");
         System.out.println("=================================");
 
-        // 🔹 Create List of Bogies
+        // 🔹 Create Bogie List
         List<Bogie> bogies = new ArrayList<>();
 
-        // 🔹 Add Bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 60));
         bogies.add(new Bogie("First Class", 40));
 
-        // 🔹 Sort using Comparator (by capacity)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        // 🔹 Filter bogies with capacity > 60
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        // 🔹 Display Sorted List
-        System.out.println("\nBogies Sorted by Capacity:");
-        for (Bogie b : bogies) {
+        // 🔹 Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filteredBogies) {
             System.out.println(b);
         }
 
