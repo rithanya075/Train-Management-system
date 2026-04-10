@@ -1,24 +1,36 @@
-import java.util.Arrays;
+import java.util.*;
 
 /**
- * UC17: Sort Bogie Names using Arrays.sort()
+ * UC18: Linear Search for Bogie ID
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC17: Sort Bogie Names Alphabetically ===");
+        System.out.println("=== UC18: Linear Search for Bogie ID ===");
 
-        // Input array
-        String[] bogies = {"Sleeper", "AC Chair", "First Class", "Cargo", "Guard"};
+        // Array of bogie IDs
+        String[] bogieIds = {"BG101", "BG202", "BG303", "BG404"};
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogies));
+        String searchKey = "BG303"; // 🔍 change this to test
 
-        // 🔥 Inbuilt sorting
-        Arrays.sort(bogies);
+        boolean found = linearSearch(bogieIds, searchKey);
 
-        System.out.println("After Sorting:");
-        System.out.println(Arrays.toString(bogies));
+        if (found) {
+            System.out.println("Bogie ID " + searchKey + " FOUND ✅");
+        } else {
+            System.out.println("Bogie ID " + searchKey + " NOT FOUND ❌");
+        }
+    }
+
+    // 🔥 Linear Search Method
+    public static boolean linearSearch(String[] arr, String key) {
+
+        for (String id : arr) {
+            if (id.equals(key)) {  // safe string comparison
+                return true; // early termination
+            }
+        }
+        return false;
     }
 }

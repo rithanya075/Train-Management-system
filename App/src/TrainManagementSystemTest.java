@@ -1,30 +1,19 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Arrays;
 
 class TrainManagementSystemTest {
 
     @Test
-    void testSorting() {
-        String[] bogies = {"Sleeper", "AC Chair", "Cargo"};
+    void testFound() {
+        String[] arr = {"BG101", "BG202", "BG303"};
 
-        Arrays.sort(bogies);
-
-        assertArrayEquals(
-                new String[]{"AC Chair", "Cargo", "Sleeper"},
-                bogies
-        );
+        assertTrue(TrainManagementSystem.linearSearch(arr, "BG202"));
     }
 
     @Test
-    void testAlreadySorted() {
-        String[] bogies = {"AC", "Cargo", "Sleeper"};
+    void testNotFound() {
+        String[] arr = {"BG101", "BG202", "BG303"};
 
-        Arrays.sort(bogies);
-
-        assertArrayEquals(
-                new String[]{"AC", "Cargo", "Sleeper"},
-                bogies
-        );
+        assertFalse(TrainManagementSystem.linearSearch(arr, "BG999"));
     }
 }
