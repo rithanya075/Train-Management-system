@@ -1,49 +1,51 @@
-import java.util.Arrays;
+import java.util.*;
 
 /**
- * UC19: Binary Search for Bogie ID
+ * UC20: Exception Handling During Search Operations
  */
 public class TrainManagementSystem {
 
     public static void main(String[] args) {
 
-        System.out.println("=== UC19: Binary Search for Bogie ID ===");
+        System.out.println("=== UC20: Safe Search with Exception Handling ===");
 
-        // 🔥 MUST BE SORTED
-        String[] bogieIds = {"BG101", "BG202", "BG303", "BG404", "BG505"};
+        List<String> bogieList = new ArrayList<>();
 
-        String searchKey = "BG303";
+        // 🔍 Try searching in empty list
+        try {
+            boolean result = safeSearch(bogieList, "BG101");
+            System.out.println("Found: " + result);
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
-        boolean found = binarySearch(bogieIds, searchKey);
+        // Add data and try again
+        bogieList.add("BG101");
+        bogieList.add("BG202");
 
-        if (found) {
-            System.out.println("Bogie ID " + searchKey + " FOUND ✅");
-        } else {
-            System.out.println("Bogie ID " + searchKey + " NOT FOUND ❌");
+        try {
+            boolean result = safeSearch(bogieList, "BG202");
+            System.out.println("Search Result: " + result);
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    // 🔥 Binary Search Method
-    public static boolean binarySearch(String[] arr, String key) {
+    // 🔥 Safe Search Method
+    public static boolean safeSearch(List<String> list, String key) {
 
-        int low = 0;
-        int high = arr.length - 1;
+        // ❗ Defensive check
+        if (list.isEmpty()) {
+            throw new IllegalStateException("Cannot search: No bogies available in the train.");
+        }
 
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int result = arr[mid].compareTo(key);
-
-            if (result == 0) {
-                return true; // found
-            } else if (result < 0) {
-                low = mid + 1; // search right
-            } else {
-                high = mid - 1; // search left
+        // Linear search
+        for (String id : list) {
+            if (id.equals(key)) {
+                return true;
             }
         }
 
-        return false; // not found
+        return false;
     }
 }

@@ -1,19 +1,24 @@
 import org.junit.jupiter.api.Test;
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrainManagementSystemTest {
 
     @Test
-    void testFound() {
-        String[] arr = {"BG101", "BG202", "BG303", "BG404"};
+    void testExceptionThrown() {
+        List<String> list = new ArrayList<>();
 
-        assertTrue(TrainManagementSystem.binarySearch(arr, "BG202"));
+        assertThrows(IllegalStateException.class, () -> {
+            TrainManagementSystem.safeSearch(list, "BG101");
+        });
     }
 
     @Test
-    void testNotFound() {
-        String[] arr = {"BG101", "BG202", "BG303", "BG404"};
+    void testValidSearch() {
+        List<String> list = new ArrayList<>();
+        list.add("BG101");
+        list.add("BG202");
 
-        assertFalse(TrainManagementSystem.binarySearch(arr, "BG999"));
+        assertTrue(TrainManagementSystem.safeSearch(list, "BG202"));
     }
 }
