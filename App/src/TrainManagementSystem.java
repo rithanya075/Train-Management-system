@@ -1,7 +1,8 @@
-import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * UC5: Maintain insertion order with uniqueness using LinkedHashSet
+ * UC6: Map Bogie to Capacity using HashMap
  */
 
 public class TrainManagementSystem {
@@ -13,21 +14,23 @@ public class TrainManagementSystem {
         System.out.println("Train Consist Management App");
         System.out.println("=================================");
 
-        // 🔹 Create LinkedHashSet
-        LinkedHashSet<String> train = new LinkedHashSet<>();
+        // 🔹 Create HashMap (Bogie → Capacity)
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        // 🔹 Add bogies
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("Cargo");
-        train.add("Guard");
+        // 🔹 Insert values
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
 
-        // 🔹 Try duplicate
-        train.add("Sleeper"); // ignored
+        // 🔹 Display mapping
+        System.out.println("\nBogie Capacity Details:");
 
-        // 🔹 Display formation
-        System.out.println("\nTrain Formation (Ordered & Unique):");
-        System.out.println(train);
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " → " + entry.getValue());
+        }
+
+        // 🔹 Example lookup
+        System.out.println("\nCapacity of Sleeper: " + bogieCapacity.get("Sleeper"));
 
         System.out.println("\nSystem Ready for Next Operations...");
     }
