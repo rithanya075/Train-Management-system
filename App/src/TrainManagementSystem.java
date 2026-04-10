@@ -2,14 +2,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * UC9: Group Bogies by Type using Streams
+ * UC10: Count Total Seats using Stream reduce()
  */
 
 // 🔹 Bogie Class
 class Bogie {
     String name;
     int capacity;
-    String type; // NEW FIELD
+    String type;
 
     Bogie(String name, int capacity, String type) {
         this.name = name;
@@ -38,21 +38,14 @@ public class TrainManagementSystem {
         bogies.add(new Bogie("AC Chair", 60, "Passenger"));
         bogies.add(new Bogie("First Class", 40, "Passenger"));
         bogies.add(new Bogie("Cargo", 100, "Goods"));
-        bogies.add(new Bogie("Parcel", 80, "Goods"));
 
-        // 🔹 Group by type
-        Map<String, List<Bogie>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(b -> b.type));
+        // 🔹 Calculate total seating capacity
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)              // extract capacity
+                .reduce(0, Integer::sum);          // sum all values
 
-        // 🔹 Display grouped result
-        System.out.println("\nGrouped Bogies:");
-
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("\nType: " + entry.getKey());
-            for (Bogie b : entry.getValue()) {
-                System.out.println("  " + b);
-            }
-        }
+        // 🔹 Display result
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
 
         System.out.println("\nSystem Ready for Next Operations...");
     }
